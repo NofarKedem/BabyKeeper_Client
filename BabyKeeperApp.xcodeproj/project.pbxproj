@@ -12,9 +12,20 @@
 		150E7DA822DDCC5900750C3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 150E7DA622DDCC5900750C3F /* Main.storyboard */; };
 		150E7DAA22DDCC5C00750C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 150E7DA922DDCC5C00750C3F /* Assets.xcassets */; };
 		150E7DAD22DDCC5C00750C3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 150E7DAB22DDCC5C00750C3F /* LaunchScreen.storyboard */; };
+		154776A422DF66550011A26F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154776A322DF66550011A26F /* LoginViewController.swift */; };
+		154776A622E2086E0011A26F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 154776A522E2086E0011A26F /* GoogleService-Info.plist */; };
+		1561C82B22E33D8A00D060E2 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1561C82A22E33D8A00D060E2 /* SignupViewController.swift */; };
+		15967A9E22E8E78200A1AA55 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967A9D22E8E78200A1AA55 /* User.swift */; };
+		15967AA122E8EA6200A1AA55 /* ContactPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA022E8EA6200A1AA55 /* ContactPerson.swift */; };
+		15967AA422EC712400A1AA55 /* ValidationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA322EC712400A1AA55 /* ValidationEnums.swift */; };
+		15967AA622EC719000A1AA55 /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA522EC719000A1AA55 /* AlertMessages.swift */; };
+		15967AA822EC71D500A1AA55 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA722EC71D500A1AA55 /* Validation.swift */; };
+		15967AAA22EC927B00A1AA55 /* UiTagsEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA922EC927B00A1AA55 /* UiTagsEnums.swift */; };
+		5E57FF0A9AE9D9C5693A2982 /* Pods_BabyKeeperApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C3C985050BBDBE9D5FFE61 /* Pods_BabyKeeperApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06007F2BB69F85BCA6C6647B /* Pods-BabyKeeperApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabyKeeperApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-BabyKeeperApp/Pods-BabyKeeperApp.release.xcconfig"; sourceTree = "<group>"; };
 		150E7D9F22DDCC5900750C3F /* BabyKeeperApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyKeeperApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		150E7DA222DDCC5900750C3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		150E7DA422DDCC5900750C3F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +33,17 @@
 		150E7DA922DDCC5C00750C3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		150E7DAC22DDCC5C00750C3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		150E7DAE22DDCC5C00750C3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		154776A322DF66550011A26F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		154776A522E2086E0011A26F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Documents/BabyKeeper - Final Project/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1561C82A22E33D8A00D060E2 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		15967A9D22E8E78200A1AA55 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		15967AA022E8EA6200A1AA55 /* ContactPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPerson.swift; sourceTree = "<group>"; };
+		15967AA322EC712400A1AA55 /* ValidationEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationEnums.swift; sourceTree = "<group>"; };
+		15967AA522EC719000A1AA55 /* AlertMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessages.swift; sourceTree = "<group>"; };
+		15967AA722EC71D500A1AA55 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		15967AA922EC927B00A1AA55 /* UiTagsEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTagsEnums.swift; sourceTree = "<group>"; };
+		27C3C985050BBDBE9D5FFE61 /* Pods_BabyKeeperApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabyKeeperApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC8B945CC30031C612C940D6 /* Pods-BabyKeeperApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabyKeeperApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BabyKeeperApp/Pods-BabyKeeperApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E57FF0A9AE9D9C5693A2982 /* Pods_BabyKeeperApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +63,8 @@
 			children = (
 				150E7DA122DDCC5900750C3F /* BabyKeeperApp */,
 				150E7DA022DDCC5900750C3F /* Products */,
+				578CAA8D251C284EC36D9C0F /* Pods */,
+				870490B4BD398FB35FF6406F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +79,56 @@
 		150E7DA122DDCC5900750C3F /* BabyKeeperApp */ = {
 			isa = PBXGroup;
 			children = (
+				15967AA222EC70ED00A1AA55 /* Utils */,
+				15967A9F22E8EA2500A1AA55 /* Managers */,
+				154776A522E2086E0011A26F /* GoogleService-Info.plist */,
 				150E7DA222DDCC5900750C3F /* AppDelegate.swift */,
 				150E7DA422DDCC5900750C3F /* ViewController.swift */,
 				150E7DA622DDCC5900750C3F /* Main.storyboard */,
+				154776A322DF66550011A26F /* LoginViewController.swift */,
 				150E7DA922DDCC5C00750C3F /* Assets.xcassets */,
 				150E7DAB22DDCC5C00750C3F /* LaunchScreen.storyboard */,
 				150E7DAE22DDCC5C00750C3F /* Info.plist */,
+				1561C82A22E33D8A00D060E2 /* SignupViewController.swift */,
+				15967AA922EC927B00A1AA55 /* UiTagsEnums.swift */,
 			);
 			path = BabyKeeperApp;
+			sourceTree = "<group>";
+		};
+		15967A9F22E8EA2500A1AA55 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				15967A9D22E8E78200A1AA55 /* User.swift */,
+				15967AA022E8EA6200A1AA55 /* ContactPerson.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		15967AA222EC70ED00A1AA55 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				15967AA322EC712400A1AA55 /* ValidationEnums.swift */,
+				15967AA522EC719000A1AA55 /* AlertMessages.swift */,
+				15967AA722EC71D500A1AA55 /* Validation.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		578CAA8D251C284EC36D9C0F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DC8B945CC30031C612C940D6 /* Pods-BabyKeeperApp.debug.xcconfig */,
+				06007F2BB69F85BCA6C6647B /* Pods-BabyKeeperApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		870490B4BD398FB35FF6406F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27C3C985050BBDBE9D5FFE61 /* Pods_BabyKeeperApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,6 +138,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 150E7DB122DDCC5C00750C3F /* Build configuration list for PBXNativeTarget "BabyKeeperApp" */;
 			buildPhases = (
+				B8A49C328D1C61BF4EBCE1D4 /* [CP] Check Pods Manifest.lock */,
 				150E7D9B22DDCC5900750C3F /* Sources */,
 				150E7D9C22DDCC5900750C3F /* Frameworks */,
 				150E7D9D22DDCC5900750C3F /* Resources */,
@@ -123,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				150E7DAD22DDCC5C00750C3F /* LaunchScreen.storyboard in Resources */,
+				154776A622E2086E0011A26F /* GoogleService-Info.plist in Resources */,
 				150E7DAA22DDCC5C00750C3F /* Assets.xcassets in Resources */,
 				150E7DA822DDCC5900750C3F /* Main.storyboard in Resources */,
 			);
@@ -130,13 +199,42 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B8A49C328D1C61BF4EBCE1D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BabyKeeperApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		150E7D9B22DDCC5900750C3F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				154776A422DF66550011A26F /* LoginViewController.swift in Sources */,
 				150E7DA522DDCC5900750C3F /* ViewController.swift in Sources */,
+				1561C82B22E33D8A00D060E2 /* SignupViewController.swift in Sources */,
+				15967AAA22EC927B00A1AA55 /* UiTagsEnums.swift in Sources */,
+				15967A9E22E8E78200A1AA55 /* User.swift in Sources */,
+				15967AA822EC71D500A1AA55 /* Validation.swift in Sources */,
 				150E7DA322DDCC5900750C3F /* AppDelegate.swift in Sources */,
+				15967AA122E8EA6200A1AA55 /* ContactPerson.swift in Sources */,
+				15967AA622EC719000A1AA55 /* AlertMessages.swift in Sources */,
+				15967AA422EC712400A1AA55 /* ValidationEnums.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +378,7 @@
 		};
 		150E7DB222DDCC5C00750C3F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC8B945CC30031C612C940D6 /* Pods-BabyKeeperApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -297,6 +396,7 @@
 		};
 		150E7DB322DDCC5C00750C3F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06007F2BB69F85BCA6C6647B /* Pods-BabyKeeperApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
