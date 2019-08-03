@@ -9,7 +9,7 @@
 import Foundation
 
 enum AlertMessages: String {
-    case inValidEmail = "InvalidEmail"
+    case inValidEmail = "Invalid Email"
     case invalidFirstLetterCaps = "First Letter should be capital"
     case inValidPhone = "Invalid Phone"
     case invalidAlphabeticString = "Invalid String"

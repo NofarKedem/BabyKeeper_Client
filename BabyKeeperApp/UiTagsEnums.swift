@@ -19,3 +19,9 @@ enum SignUpView : Int{
     //return self.rawValue
     
 };
+
+enum LoginView : Int{
+    case emailFieldTag = 0
+    case pwFieldTag = 1
+
+};
