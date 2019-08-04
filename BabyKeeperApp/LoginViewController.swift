@@ -67,7 +67,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 else{
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
                     //print(json)
-                    print(json["email"]!)
+                    //print(json["email"]!)
                     //need to save/use the relevent data from backend
                     self.doSegue(withIdentifier: "loginSegue", sender: sender)
                 }
