@@ -1,0 +1,6 @@
+framework module Pods_BabyKeeperApp {
+  umbrella header "Pods-BabyKeeperApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
