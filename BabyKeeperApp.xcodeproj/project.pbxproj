@@ -13,7 +13,6 @@
 		150E7DAA22DDCC5C00750C3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 150E7DA922DDCC5C00750C3F /* Assets.xcassets */; };
 		150E7DAD22DDCC5C00750C3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 150E7DAB22DDCC5C00750C3F /* LaunchScreen.storyboard */; };
 		154776A422DF66550011A26F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154776A322DF66550011A26F /* LoginViewController.swift */; };
-		154776A622E2086E0011A26F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 154776A522E2086E0011A26F /* GoogleService-Info.plist */; };
 		1561C82B22E33D8A00D060E2 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1561C82A22E33D8A00D060E2 /* SignupViewController.swift */; };
 		15967A9E22E8E78200A1AA55 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967A9D22E8E78200A1AA55 /* User.swift */; };
 		15967AA122E8EA6200A1AA55 /* ContactPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA022E8EA6200A1AA55 /* ContactPerson.swift */; };
@@ -21,6 +20,7 @@
 		15967AA622EC719000A1AA55 /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA522EC719000A1AA55 /* AlertMessages.swift */; };
 		15967AA822EC71D500A1AA55 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA722EC71D500A1AA55 /* Validation.swift */; };
 		15967AAA22EC927B00A1AA55 /* UiTagsEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AA922EC927B00A1AA55 /* UiTagsEnums.swift */; };
+		15967AD522FA10BD00A1AA55 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967AD422FA10BD00A1AA55 /* SettingsViewController.swift */; };
 		5E57FF0A9AE9D9C5693A2982 /* Pods_BabyKeeperApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27C3C985050BBDBE9D5FFE61 /* Pods_BabyKeeperApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +42,7 @@
 		15967AA522EC719000A1AA55 /* AlertMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessages.swift; sourceTree = "<group>"; };
 		15967AA722EC71D500A1AA55 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		15967AA922EC927B00A1AA55 /* UiTagsEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTagsEnums.swift; sourceTree = "<group>"; };
+		15967AD422FA10BD00A1AA55 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		27C3C985050BBDBE9D5FFE61 /* Pods_BabyKeeperApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabyKeeperApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8B945CC30031C612C940D6 /* Pods-BabyKeeperApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabyKeeperApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BabyKeeperApp/Pods-BabyKeeperApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +92,7 @@
 				150E7DAE22DDCC5C00750C3F /* Info.plist */,
 				1561C82A22E33D8A00D060E2 /* SignupViewController.swift */,
 				15967AA922EC927B00A1AA55 /* UiTagsEnums.swift */,
+				15967AD422FA10BD00A1AA55 /* SettingsViewController.swift */,
 			);
 			path = BabyKeeperApp;
 			sourceTree = "<group>";
@@ -191,7 +193,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				150E7DAD22DDCC5C00750C3F /* LaunchScreen.storyboard in Resources */,
-				154776A622E2086E0011A26F /* GoogleService-Info.plist in Resources */,
 				150E7DAA22DDCC5C00750C3F /* Assets.xcassets in Resources */,
 				150E7DA822DDCC5900750C3F /* Main.storyboard in Resources */,
 			);
@@ -227,6 +228,7 @@
 			files = (
 				154776A422DF66550011A26F /* LoginViewController.swift in Sources */,
 				150E7DA522DDCC5900750C3F /* ViewController.swift in Sources */,
+				15967AD522FA10BD00A1AA55 /* SettingsViewController.swift in Sources */,
 				1561C82B22E33D8A00D060E2 /* SignupViewController.swift in Sources */,
 				15967AAA22EC927B00A1AA55 /* UiTagsEnums.swift in Sources */,
 				15967A9E22E8E78200A1AA55 /* User.swift in Sources */,

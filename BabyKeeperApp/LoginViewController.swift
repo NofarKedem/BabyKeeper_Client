@@ -68,7 +68,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
                     //print(json)
                     //print(json["email"]!)
-                    //need to save/use the relevent data from backend
+                    
+                    
+                    //                    //need to save/use the relevent data from backend
+                    //                    if (json["loginSuccess"] as! Bool){ //if the login at the backend succeeded
+                    //                        UserDefaults.standard.set(json["userID"], forKey: "userID")
+                    //                        self.doSegue(withIdentifier: "loginSegue", sender: sender)
+                    //                    }
+                    //                    else{ //if the login at the backend failed
+                    //                        self.showAlertMessage(message: json["errorMsg"]! as! String)
+                    //                    }
+                    
+                    
                     self.doSegue(withIdentifier: "loginSegue", sender: sender)
                 }
                 

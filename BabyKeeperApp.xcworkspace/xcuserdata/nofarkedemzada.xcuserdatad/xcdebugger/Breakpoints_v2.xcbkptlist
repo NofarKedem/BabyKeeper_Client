@@ -9,116 +9,8 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BabyKeeperApp/SignupViewController.swift"
-            timestampString = "586545917.5691791"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "textFieldDidEndEditing(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BabyKeeperApp.SignupViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
-                  moduleName = "BabyKeeperApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nofarkedemzada/BabyKeeperApp/BabyKeeperApp/SignupViewController.swift"
-                  timestampString = "586109846.437862"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "340">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BabyKeeperApp.SignupViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
-                  moduleName = "BabyKeeperApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nofarkedemzada/BabyKeeperApp/BabyKeeperApp/SignupViewController.swift"
-                  timestampString = "586109846.439894"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "406">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BabyKeeperApp.SignupViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
-                  moduleName = "BabyKeeperApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nofarkedemzada/BabyKeeperApp/BabyKeeperApp/SignupViewController.swift"
-                  timestampString = "586109846.4464999"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "1422">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BabyKeeperApp.SignupViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
-                  moduleName = "BabyKeeperApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nofarkedemzada/BabyKeeperApp/BabyKeeperApp/SignupViewController.swift"
-                  timestampString = "586109846.451375"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "2443">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BabyKeeperApp.SignupViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
-                  moduleName = "BabyKeeperApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nofarkedemzada/BabyKeeperApp/BabyKeeperApp/SignupViewController.swift"
-                  timestampString = "586109846.458138"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "3464">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BabyKeeperApp.SignupViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
-                  moduleName = "BabyKeeperApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nofarkedemzada/BabyKeeperApp/BabyKeeperApp/SignupViewController.swift"
-                  timestampString = "586109846.4614021"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "4485">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "BabyKeeperApp/LoginViewController.swift"
-            timestampString = "586545917.569273"
+            timestampString = "586947053.260323"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "59"
@@ -134,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BabyKeeperApp/LoginViewController.swift"
-            timestampString = "586545917.569645"
+            timestampString = "586947053.2604049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
@@ -150,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BabyKeeperApp/SignupViewController.swift"
-            timestampString = "586545917.56991"
+            timestampString = "587116672.2735519"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "didPressSignUpBtn(_:)"
             landmarkType = "7">
          </BreakpointContent>

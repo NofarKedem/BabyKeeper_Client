@@ -9,6 +9,7 @@
 import Foundation
 
 class User {
+    var userID : String
     var firstName : String
     var lastName : String
     var email : String
@@ -16,7 +17,8 @@ class User {
     var myPhoneNum : String
     var emergncyContacts = [ContactPerson]()
     
-    init(firstName : String, lastName : String, email : String, pw : String, myPhoneNum : String){
+    init(userID : String, firstName : String, lastName : String, email : String, pw : String, myPhoneNum : String){
+        self.userID = userID
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
@@ -25,6 +27,10 @@ class User {
     }
     
     //setters
+    func setUserID(userID : String){
+        self.userID = userID
+    }
+    
     func setFirstName(firstName : String){
         self.firstName = firstName
     }
@@ -54,6 +60,10 @@ class User {
     }
     
     //getters
+    func getUserID() -> String {
+        return self.userID
+    }
+    
     func getFirstName() -> String {
         return self.firstName
     }
@@ -72,6 +82,10 @@ class User {
     
     func getMyPhoneNumber() -> String {
         return self.myPhoneNum
+    }
+    
+    func getContactPerson() -> [ContactPerson]! {
+        return self.emergncyContacts
     }
     
     //mostly for debbuing

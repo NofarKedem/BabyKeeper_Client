@@ -40,7 +40,6 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
         
     }
     
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         textFieldsValidations(textField)
     }
@@ -72,13 +71,11 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
             return
         }
         
-        let newUser : User = User(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, email: emailTextField.text!, pw: passwordTextField.text!, myPhoneNum: "")
-        
         //Send the user object to the server and wait for the response
-        let params = ["FirstName": newUser.firstName,
-                      "LastName": newUser.lastName,
-                      "Email": newUser.email,
-                      "Password": newUser.pw] as Dictionary<String, String>
+        let params = ["FirstName": firstNameTextField.text,
+                      "LastName": lastNameTextField.text,
+                      "Email": emailTextField.text,
+                      "Password": passwordTextField.text] as! Dictionary<String, String>
         print(params)
         var request = URLRequest(url: URL(string: "http://localhost:8080/signup")!)
         request.httpMethod = "POST"
@@ -92,6 +89,31 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
                 let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
                 print(json)
                 //print(json["FaultId"]!)
+                
+                let response = response as! HTTPURLResponse
+                if response.statusCode != 200 {
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    //print(json["message"]!)
+                    self.showAlertMessage(message: json["message"]! as! String)
+                    
+                }
+                else{
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    //print(json)
+                    //print(json["email"]!)
+                    
+                        //need to save/use the relevent data from backend
+//                        if (json["signupSuccess"] as! Bool){ //if the login at the backend succeeded
+//                            UserDefaults.standard.set(json["userID"], forKey: "userID")
+//                            self.doSegue(withIdentifier: "signUpSegue", sender: sender)
+//                        }
+//                        else{ //if the login at the backend failed
+//                            self.showAlertMessage(message: json["errorMsg"]! as! String)
+//                        }
+                    
+                    self.doSegue(withIdentifier: "signUpSegue", sender: sender)
+                }
+                
 
             } catch {
                 print("error")
@@ -100,6 +122,25 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
 
         task.resume()
         
+    }
+    
+    //need to change
+    func doSegue(withIdentifier identifier: String, sender: Any?) {
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "signUpSegue", sender: sender)
+        }
+    }
+    
+    func showAlertMessage(message:String) {
+        DispatchQueue.main.async {
+            let alertMessage = UIAlertController(title: "Sign Up Failed", message: message, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertMessage.addAction(cancelAction)
+            
+            self.present(alertMessage, animated: true, completion: nil)
+        }
     }
 
     //validations and error handaling for all the text fields

@@ -13,12 +13,12 @@ class ContactPerson {
     var lastName : String
     var phoneNum : String
     
+    
     init (firstName: String, lastName: String, phoneNum : String) {
         self.firstName = firstName
         self.lastName = lastName
         self.phoneNum = phoneNum
     }
-    
     
     //setters
     func setFirstName(firstName : String){
