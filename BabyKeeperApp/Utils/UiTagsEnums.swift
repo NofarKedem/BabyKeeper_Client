@@ -25,3 +25,11 @@ enum LoginView : Int{
     case pwFieldTag = 1
 
 };
+
+enum settingsView : Int{
+    case phoneNumTag = 0
+    case contactFirstNameTag = 1
+    case contactLastNameTag = 2
+    case contactPhoneTag = 3
+    
+};

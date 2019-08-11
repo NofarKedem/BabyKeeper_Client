@@ -26,7 +26,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     var contactPersonToDisplay: [ContactPerson]! = []
     var user : User!
-    
+    var errorInContactsValidation : Bool = false
+    var errorInPersonalPhoneValidation : Bool = false
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,23 +45,59 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func pressApprovePhoneBtn(_ sender: Any) {
         //need to add verification for phone num
+        textFieldsValidations(phoneNumField)
+        if (errorInPersonalPhoneValidation){
+            errorInPersonalPhoneValidation = false
+            phoneNumField.text = user.myPhoneNum
+            DispatchQueue.main.async {
+                self.phoneNumField.isEnabled = false
+                self.approvePhoneBtn.isEnabled = false
+                self.submitBtn.isEnabled = true
+                self.showAlertMessage()
+            }
+            //errorInPersonalPhoneValidation = false
+            return
+        }
+        
         user.setMyPhoneNumber(myPhoneNum: phoneNumField.text!)
         DispatchQueue.main.async {self.phoneNumField.isEnabled = false}
         DispatchQueue.main.async {self.approvePhoneBtn.isEnabled = false}
+        DispatchQueue.main.async {self.submitBtn.isEnabled = true}
     }
     
     
     @IBAction func pressAddContactBtn(_ sender: Any) {
-        //need to add verification for fields data
+        //Verification for fields data
+        textFieldsValidations(contactFirstNameField)
+        textFieldsValidations(contactLastNameField)
+        textFieldsValidations(contactPhoneField)
+        if (errorInContactsValidation){
+            showAlertMessage()
+            errorInContactsValidation = false
+            return
+        }
         
-        //user.addContactPerson(contactFirstName: contactFirstNameField.text!, contactLastName: contactLastNameField.text!, contactPhoneNum: contactPhoneField.text!)
         contactPersonToDisplay.append(ContactPerson(firstName: contactFirstNameField.text!, lastName: contactLastNameField.text!, phoneNum: contactPhoneField.text!))
         DispatchQueue.main.async { self.tableView.reloadData() }
-
+        DispatchQueue.main.async {self.submitBtn.isEnabled = true}
         
     }
     
-
+    @IBAction func pressSubmitBtn(_ sender: Any) {
+        
+        //update the app user object to contain the array of contact that appears in the UI
+        user.emergncyContacts = contactPersonToDisplay
+        
+        //make submit button disabled again
+        DispatchQueue.main.async {self.submitBtn.isEnabled = false}
+        
+        //perform call to the server with the new details to update - TBD
+        updateUserInfo()
+        print("Call is made")
+        
+        self.performSegue(withIdentifier: "submitSegue", sender: sender)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -89,14 +127,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             do {
                 let response = response as! HTTPURLResponse
                 if (response.statusCode != 200){
-                    //handle error
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    self.showGetInfoAlertMessage(message: json["message"]! as! String)
                     print(response.statusCode)
                 }
                 else{
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
                     //print(json)
                     self.saveUserInfo(json : json)
-                    //print(self.user.getMyPhoneNumber())
                     self.displayUserInfo()
                 }
                 
@@ -125,10 +163,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return contactPersonToDisplay.count
-        
-//        if (user?.emergncyContacts != nil) {
-//            return user.emergncyContacts.count
         if (contactPersonToDisplay != nil) {
             return contactPersonToDisplay.count
         } else {
@@ -141,7 +175,92 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let contact = contactPersonToDisplay[indexPath.row]
         cell.textLabel?.text = contact.firstName + "    " + contact.lastName + "    " + contact.phoneNum
         
+        
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.contactPersonToDisplay.remove(at: indexPath.row)
+            //update the app user object to contain the array of contact that appears in the UI
+            user.emergncyContacts = contactPersonToDisplay
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            submitBtn.isEnabled = true
+        }
+    }
+    
+    func updateUserInfo(){
+        //perform api call with all the user object data
+    }
+    
+    //validations and error handaling for all the  login text fields
+    func textFieldsValidations(_ textField: UITextField){
+        switch (textField.tag) {
+        case settingsView.phoneNumTag.rawValue:
+            let response = Validation.shared.validate(values: (ValidationType.phoneNo, phoneNumField.text!))
+            switch response {
+            case .success:
+                break
+            case .failure(_, let message):
+                print(message.localized())
+                self.errorInPersonalPhoneValidation = true
+            }
+            break;
+        case settingsView.contactFirstNameTag.rawValue:
+            let response = Validation.shared.validate(values: (ValidationType.stringWithFirstLetterCaps, contactFirstNameField.text!))
+            switch response {
+            case .success:
+                break
+            case .failure(_, let message):
+                print(message.localized())
+                self.errorInContactsValidation = true
+            }
+            break;
+        case settingsView.contactLastNameTag.rawValue:
+            let response = Validation.shared.validate(values: (ValidationType.stringWithFirstLetterCaps, contactLastNameField.text!))
+            switch response {
+            case .success:
+                break
+            case .failure(_, let message):
+                print(message.localized())
+                self.errorInContactsValidation = true
+            }
+            break;
+        case settingsView.contactPhoneTag.rawValue:
+            let response = Validation.shared.validate(values: (ValidationType.phoneNo, contactPhoneField.text!))
+            switch response {
+            case .success:
+                break
+            case .failure(_, let message):
+                print(message.localized())
+                self.errorInContactsValidation = true
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    
+    func showAlertMessage() {
+        DispatchQueue.main.async {
+            let message = "One or more text fields values are invalid. \n Please verify names appears with capitals and phone numbers are valid"
+            let alertMessage = UIAlertController(title: "Validation Error", message: message, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertMessage.addAction(cancelAction)
+            
+            self.present(alertMessage, animated: true, completion: nil)
+        }
+    }
+    
+    func showGetInfoAlertMessage(message:String){
+        let alertMessage = UIAlertController(title: "Something Went Wrong", message: message, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        
+        alertMessage.addAction(cancelAction)
+        
+        self.present(alertMessage, animated: true, completion: nil)
+    }
 }
