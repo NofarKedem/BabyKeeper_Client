@@ -82,9 +82,9 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
         request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let waitForTaskGroup = DispatchGroup()
+        //let waitForTaskGroup = DispatchGroup()
         
-        waitForTaskGroup.enter()
+        //waitForTaskGroup.enter()
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             print(response!)

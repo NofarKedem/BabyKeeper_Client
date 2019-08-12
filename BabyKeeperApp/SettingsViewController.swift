@@ -35,7 +35,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         submitBtn.isEnabled = false
         approvePhoneBtn.isEnabled = false
         getUserInfo()
-        
+        getContactInfo()
+        //tableView.reloadData()
     }
     
     @IBAction func pressEditPhoneBtn(_ sender: Any) {
@@ -109,11 +110,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 //        }
 //    }
  
-
     func getUserInfo(){
         let userId = UserDefaults.standard.string(forKey: "userID")
         let params = ["userid": userId] as! Dictionary<String, String>
-        var components = URLComponents(string: "http://localhost:8080/getSettingInfo")!
+        var components = URLComponents(string: "http://localhost:8080/getUserSettingInfo")!
         components.queryItems = params.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }
@@ -132,10 +132,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 else{
                     print(data!)
-                    let jsonDecoder = JSONDecoder()
-                    let decoded = try! jsonDecoder.decode([SettingInfo].self, from: data!)
-                    
-                    print(decoded)
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
                     print(json)
                     self.saveUserInfo(json : json, userId: userId!)
@@ -149,22 +145,56 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         task.resume()
     }
+
+    func getContactInfo(){
+        let userId = UserDefaults.standard.string(forKey: "userID")
+        let params = ["userid": userId] as! Dictionary<String, String>
+        var components = URLComponents(string: "http://localhost:8080/getContactsInfo")!
+        components.queryItems = params.map { (key, value) in
+            URLQueryItem(name: key, value: value)
+        }
+        var request = URLRequest(url: components.url!)
+        //var request = URLRequest(url: URL(string: "")!)
+        request.httpMethod = "GET"
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+            //print(response!)
+            do {
+                let response = response as! HTTPURLResponse
+                if (response.statusCode != 200){
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
+                    self.showGetInfoAlertMessage(message: json["message"]! as! String)
+                    print(response.statusCode)
+                }
+                else{
+                    //print(data!)
+                    let jsonDecoder = JSONDecoder()
+                    let decoded = try! jsonDecoder.decode([ContactPerson2].self, from: data!)
+                    print(decoded[0].firstName)
+                    //let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    //print(json)
+                    self.saveContactsInfo(decodedData : decoded, userId: userId!)
+                    self.displayUserInfo()
+                }
+                
+            } catch {
+                print("error")
+            }
+        })
+        
+        task.resume()
+    }
     
     func saveUserInfo(json : Dictionary<String, AnyObject>, userId: String ) {
         
-        
-        
         user = User(userID: userId, firstName: json["fname"]! as! String, lastName: json["lname"]! as! String, email: "", pw: "", myPhoneNum: json["phoneNumber"]! as! String)
-        
-//        if let contactMap = json["contactMap"] as? Dictionary {
-//            
-//            print(contactMap)
-//        }
-        
-        
-        
-        print(json["contactList"]!)
-        user.addContactPerson(contactFirstName: json["EmergencyFName"]! as! String, contactLastName: json["EmergencyLName"]! as! String, contactPhoneNum: json["EmergencyMobile"]! as! String)
+    }
+    
+    func saveContactsInfo(decodedData : [ContactPerson2], userId: String ) {
+        for item in decodedData {
+            print(item.firstName)
+            user.addContactPerson(contactFirstName: item.firstName, contactLastName: item.lastName, contactPhoneNum: item.phoneNum)
+        }
         contactPersonToDisplay = user.getContactPerson()!
     }
     
