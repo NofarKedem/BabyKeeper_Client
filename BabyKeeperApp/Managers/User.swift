@@ -8,7 +8,8 @@
 
 import Foundation
 
-class User {
+class User  {
+    
     var userID : String
     var firstName : String
     var lastName : String

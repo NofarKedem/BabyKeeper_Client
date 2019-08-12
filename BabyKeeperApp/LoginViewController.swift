@@ -61,7 +61,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 if response.statusCode != 200 {
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
                     //print(json["message"]!)
-                    self.showAlertMessage(message: json["message"]! as! String)
+                    self.showAlertMessage(message: json["errorMsg"]! as! String)
                     
                 }
                 else{
@@ -69,15 +69,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     //print(json)
                     //print(json["email"]!)
                     
-                    
-                    //                    //need to save/use the relevent data from backend
-                    //                    if (json["loginSuccess"] as! Bool){ //if the login at the backend succeeded
-                    //                        UserDefaults.standard.set(json["userID"], forKey: "userID")
-                    //                        self.doSegue(withIdentifier: "loginSegue", sender: sender)
-                    //                    }
-                    //                    else{ //if the login at the backend failed
-                    //                        self.showAlertMessage(message: json["errorMsg"]! as! String)
-                    //                    }
+                    //need to save/use the relevent data from backend
+                    if (json["actionSucceed"] as! Bool){ //if the login at the backend succeeded
+                        UserDefaults.standard.set(json["userId"], forKey: "userID")
+                        self.doSegue(withIdentifier: "loginSegue", sender: sender)
+                    }
+                    else{ //if the login at the backend failed
+                        self.showAlertMessage(message: json["errorMsg"]! as! String)
+                    }
                     
                     
                     self.doSegue(withIdentifier: "loginSegue", sender: sender)

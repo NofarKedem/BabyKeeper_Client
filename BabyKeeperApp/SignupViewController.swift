@@ -82,6 +82,9 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
         request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
+        let waitForTaskGroup = DispatchGroup()
+        
+        waitForTaskGroup.enter()
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             print(response!)
@@ -102,14 +105,14 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
                     //print(json)
                     //print(json["email"]!)
                     
-                        //need to save/use the relevent data from backend
-//                        if (json["signupSuccess"] as! Bool){ //if the login at the backend succeeded
-//                            UserDefaults.standard.set(json["userID"], forKey: "userID")
-//                            self.doSegue(withIdentifier: "signUpSegue", sender: sender)
-//                        }
-//                        else{ //if the login at the backend failed
-//                            self.showAlertMessage(message: json["errorMsg"]! as! String)
-//                        }
+                    //need to save/use the relevent data from backend
+                    if (json["actionSucceed"] as! Bool){ //if the login at the backend succeeded
+                        UserDefaults.standard.set(json["userId"], forKey: "userID")
+                        self.doSegue(withIdentifier: "signUpSegue", sender: sender)
+                    }
+                    else{ //if the login at the backend failed
+                        self.showAlertMessage(message: json["errorMsg"]! as! String)
+                    }
                     
                     self.doSegue(withIdentifier: "signUpSegue", sender: sender)
                 }
@@ -121,6 +124,7 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
         })
 
         task.resume()
+        
         
     }
     

@@ -111,10 +111,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
  
 
     func getUserInfo(){
-        //user id should be change to get from session ?
-        let userId = "123"
-        let params = ["userid": userId] as Dictionary<String, String>
-        var components = URLComponents(string: "http://localhost:8080/getSettingsInfo")!
+        let userId = UserDefaults.standard.string(forKey: "userID")
+        let params = ["userid": userId] as! Dictionary<String, String>
+        var components = URLComponents(string: "http://localhost:8080/getSettingInfo")!
         components.queryItems = params.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }
@@ -127,14 +126,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             do {
                 let response = response as! HTTPURLResponse
                 if (response.statusCode != 200){
-                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
                     self.showGetInfoAlertMessage(message: json["message"]! as! String)
                     print(response.statusCode)
                 }
                 else{
+                    print(data!)
+                    let jsonDecoder = JSONDecoder()
+                    let decoded = try! jsonDecoder.decode([SettingInfo].self, from: data!)
+                    
+                    print(decoded)
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                    //print(json)
-                    self.saveUserInfo(json : json)
+                    print(json)
+                    self.saveUserInfo(json : json, userId: userId!)
                     self.displayUserInfo()
                 }
                 
@@ -146,8 +150,20 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         task.resume()
     }
     
-    func saveUserInfo(json : Dictionary<String, AnyObject> ) {
-        user = User(userID: json["UserID"]! as! String, firstName: json["Fname"]! as! String, lastName: json["Lname"]! as! String, email: json["email"]! as! String, pw: "", myPhoneNum: json["Mobile"]! as! String)
+    func saveUserInfo(json : Dictionary<String, AnyObject>, userId: String ) {
+        
+        
+        
+        user = User(userID: userId, firstName: json["fname"]! as! String, lastName: json["lname"]! as! String, email: "", pw: "", myPhoneNum: json["phoneNumber"]! as! String)
+        
+//        if let contactMap = json["contactMap"] as? Dictionary {
+//            
+//            print(contactMap)
+//        }
+        
+        
+        
+        print(json["contactList"]!)
         user.addContactPerson(contactFirstName: json["EmergencyFName"]! as! String, contactLastName: json["EmergencyLName"]! as! String, contactPhoneNum: json["EmergencyMobile"]! as! String)
         contactPersonToDisplay = user.getContactPerson()!
     }
