@@ -36,7 +36,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         approvePhoneBtn.isEnabled = false
         getUserInfo()
         getContactInfo()
-        //tableView.reloadData()
+        //self.tableView.reloadData()
     }
     
     @IBAction func pressEditPhoneBtn(_ sender: Any) {
@@ -174,7 +174,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     //let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
                     //print(json)
                     self.saveContactsInfo(decodedData : decoded, userId: userId!)
-                    self.displayUserInfo()
+                    //self.displayUserInfo()
+                    //self.tableView.reloadData()
                 }
                 
             } catch {
@@ -193,10 +194,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func saveContactsInfo(decodedData : [ContactPerson2], userId: String ) {
         for item in decodedData {
             print(item.firstName)
+            print(item.lastName)
+            print(item.phoneNum)
             user.addContactPerson(contactFirstName: item.firstName, contactLastName: item.lastName, contactPhoneNum: item.phoneNum)
         }
         contactPersonToDisplay = user.getContactPerson()!
+        //self.tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
+    
     
     func displayUserInfo(){
         DispatchQueue.main.async{
@@ -210,6 +218,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (contactPersonToDisplay != nil) {
+            print(contactPersonToDisplay.count)
             return contactPersonToDisplay.count
         } else {
             return 0
@@ -220,8 +229,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellContactPerson", for: indexPath)
         let contact = contactPersonToDisplay[indexPath.row]
         cell.textLabel?.text = contact.firstName + "    " + contact.lastName + "    " + contact.phoneNum
-        
-        
         return cell
     }
     

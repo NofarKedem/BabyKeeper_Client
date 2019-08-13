@@ -29,6 +29,8 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
     var emailValidationStatus: Bool = true
     var pwValidationStatus: Bool = true
     
+    //var shouldPerformSegue : Bool = false
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -82,9 +84,9 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
         request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        //let waitForTaskGroup = DispatchGroup()
+        let waitForTaskGroup = DispatchGroup()
         
-        //waitForTaskGroup.enter()
+        waitForTaskGroup.enter()
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             print(response!)
@@ -132,8 +134,13 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
     func doSegue(withIdentifier identifier: String, sender: Any?) {
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "signUpSegue", sender: sender)
+            //self.shouldPerformSegue(withIdentifier: "signUpSegue", sender: sender)
         }
     }
+    
+//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool{
+//        return self.shouldPerformSegue
+//    }
     
     func showAlertMessage(message:String) {
         DispatchQueue.main.async {

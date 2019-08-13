@@ -9,10 +9,8 @@
 import Foundation
 
 struct SettingInfo : Decodable{
-    //let phoneNumber : String
     let contactList : [ContactPerson2]
-    //let Fname : String
-    //let Lname : String
+    
 }
 
 struct ContactPerson2 : Decodable {
@@ -23,11 +21,3 @@ struct ContactPerson2 : Decodable {
 
 
 
-//{
-//    "Fname" : "adi",
-//    "Lname" : "adi",
-//    "phoneNumber" : "98798798",
-//    "contactList" : [ "firstName" : "sdi" ,
-//                      "lastName" : "sd2sdsdi" ,
-//                      "firstName" : "0983798763873"]
-//}

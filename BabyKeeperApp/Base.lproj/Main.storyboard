@@ -249,7 +249,6 @@
                                 </state>
                                 <connections>
                                     <action selector="didPressSignUpBtn:" destination="UY0-7h-eTZ" eventType="touchUpInside" id="gPV-ct-r8z"/>
-                                    <segue destination="vwM-yp-kSd" kind="show" identifier="signUpSegue" id="xgP-5T-NzN"/>
                                 </connections>
                             </button>
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="First Letter should be capital, and name contain only letters" translatesAutoresizingMaskIntoConstraints="NO" id="c4t-3W-Ucb">
@@ -299,11 +298,12 @@
                         <outlet property="lastNameTextField" destination="QQA-sZ-yiI" id="MKf-OE-xUT"/>
                         <outlet property="passwordTextField" destination="H49-w2-gdi" id="s72-7g-sSQ"/>
                         <outlet property="pwErrMsg" destination="KIb-xL-SYY" id="4UT-4o-T54"/>
+                        <segue destination="vwM-yp-kSd" kind="show" identifier="signUpSegue" id="mhP-TQ-m3C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YzT-RG-sjq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1428.985507246377" y="137.94642857142856"/>
+            <point key="canvasLocation" x="1693" y="138"/>
         </scene>
         <!--View Controller Main Page-->
         <scene sceneID="6p4-EV-R6K">
@@ -591,8 +591,8 @@
         <image name="editIcon" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xgP-5T-NzN"/>
-        <segue reference="jMg-WK-L7f"/>
+        <segue reference="mhP-TQ-m3C"/>
+        <segue reference="Dh8-76-9Mp"/>
         <segue reference="71q-HS-tM3"/>
     </inferredMetricsTieBreakers>
 </document>
