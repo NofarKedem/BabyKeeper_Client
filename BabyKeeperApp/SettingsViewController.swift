@@ -165,17 +165,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
                     self.showGetInfoAlertMessage(message: json["message"]! as! String)
                     print(response.statusCode)
+                } else if (data!.count == 0) {
+                    print("No Contact Info")
                 }
                 else{
-                    //print(data!)
+                    print(data!)
                     let jsonDecoder = JSONDecoder()
                     let decoded = try! jsonDecoder.decode([ContactPerson2].self, from: data!)
                     print(decoded[0].firstName)
-                    //let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                    //print(json)
                     self.saveContactsInfo(decodedData : decoded, userId: userId!)
-                    //self.displayUserInfo()
-                    //self.tableView.reloadData()
                 }
                 
             } catch {
@@ -244,6 +242,39 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func updateUserInfo(){
         //perform api call with all the user object data
+        let userId = UserDefaults.standard.string(forKey: "userID") ?? "0"
+        var prepareContactsToEncode = [ContactPerson2]()
+        for contact in user.emergncyContacts{
+            prepareContactsToEncode.append(ContactPerson2(firstName: contact.firstName, lastName: contact.lastName, phoneNum: contact.phoneNum))
+        }
+
+        let encodableParams = submitInfo(userid: userId, FirstName: user.firstName, LastName: user.lastName, phoneNumber: user.myPhoneNum, contactPersons: prepareContactsToEncode)
+        let jsonEncoder = JSONEncoder()
+        let paramsData = try! jsonEncoder.encode(encodableParams)
+        let params = String(data: paramsData, encoding: .utf8)!
+        print(params)
+        
+        var request = URLRequest(url: URL(string: "http://localhost:8080/submitSettings")!)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+            //print(response!)
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                print(json)
+                print(json["FaultId"]!)
+                for (key, value) in json {
+                    print("\(key) -> \(value)")
+                }
+            } catch {
+                print("error")
+            }
+        })
+        
+        task.resume()
     }
     
     //validations and error handaling for all the  login text fields

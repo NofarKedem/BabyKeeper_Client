@@ -13,11 +13,17 @@ struct SettingInfo : Decodable{
     
 }
 
-struct ContactPerson2 : Decodable {
+struct ContactPerson2 : Codable {
     let firstName : String
     let lastName : String
     let phoneNum : String
 }
 
-
+struct submitInfo : Codable {
+    let userid : String
+    let FirstName : String
+    let LastName : String
+    let phoneNumber : String
+    let contactPersons : [ContactPerson2]
+}
 
