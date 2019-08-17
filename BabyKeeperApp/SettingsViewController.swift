@@ -93,10 +93,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         DispatchQueue.main.async {self.submitBtn.isEnabled = false}
         
         //perform call to the server with the new details to update - TBD
-        updateUserInfo()
-        print("Call is made")
-        
-        self.performSegue(withIdentifier: "submitSegue", sender: sender)
+        updateUserInfo(sender)
+        //DispatchQueue.main.async {self.performSegue(withIdentifier: "submitSegue", sender: sender)}
     }
     
     // MARK: - Navigation
@@ -165,17 +163,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
                     self.showGetInfoAlertMessage(message: json["message"]! as! String)
                     print(response.statusCode)
-                } else if (data!.count == 0) {
-                    print("No Contact Info")
-                }
-                else{
+                } else {
                     print(data!)
                     let jsonDecoder = JSONDecoder()
                     let decoded = try! jsonDecoder.decode([ContactPerson2].self, from: data!)
-                    print(decoded[0].firstName)
-                    self.saveContactsInfo(decodedData : decoded, userId: userId!)
+                    if (decoded.count == 0 ) {
+                        print("No Contact Available")
+                    } else {
+                        print(decoded[0].firstName)
+                        self.saveContactsInfo(decodedData : decoded, userId: userId!)
+                    }
                 }
-                
             } catch {
                 print("error")
             }
@@ -240,7 +238,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func updateUserInfo(){
+    func updateUserInfo(_ sender: Any){
         //perform api call with all the user object data
         let userId = UserDefaults.standard.string(forKey: "userID") ?? "0"
         var prepareContactsToEncode = [ContactPerson2]()
@@ -251,12 +249,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let encodableParams = submitInfo(userid: userId, FirstName: user.firstName, LastName: user.lastName, phoneNumber: user.myPhoneNum, contactPersons: prepareContactsToEncode)
         let jsonEncoder = JSONEncoder()
         let paramsData = try! jsonEncoder.encode(encodableParams)
-        let params = String(data: paramsData, encoding: .utf8)!
-        print(params)
+        //let params = String(data: paramsData, encoding: .utf8)!
+        //print(params)
         
-        var request = URLRequest(url: URL(string: "http://localhost:8080/submitSettings")!)
+        var request = URLRequest(url: URL(string: "http://localhost:8080/submitSetting")!)
         request.httpMethod = "POST"
-        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+        request.httpBody = paramsData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let session = URLSession.shared
@@ -264,11 +262,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             //print(response!)
             do {
                 let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                print(json)
-                print(json["FaultId"]!)
-                for (key, value) in json {
-                    print("\(key) -> \(value)")
+//                print(json)
+//                print(json["FaultId"]!)
+//                for (key, value) in json {
+//                    print("\(key) -> \(value)")
+//                }
+                if (json["actionSucceed"] as! Bool){
+                    DispatchQueue.main.async {self.performSegue(withIdentifier: "submitSegue", sender: sender)}
+                } else {
+                    print(json["errorMsg"]!)
+                    self.showGetInfoAlertMessage(message: json["errorMsg"]! as! String)
+                    return
                 }
+                
             } catch {
                 print("error")
             }

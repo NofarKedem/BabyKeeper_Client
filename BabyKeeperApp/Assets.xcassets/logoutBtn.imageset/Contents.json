@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "approveBtn.png",
+      "filename" : "logoutBtn.png",
       "scale" : "1x"
     },
     {
