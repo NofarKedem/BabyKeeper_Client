@@ -33,6 +33,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         textFieldsValidations(textField) //do we want to perform this validation here? Or just send whatever we got and get a failure anyway from the backend
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+    
     @IBAction func didPressLoginButton(_ sender: UIButton) {
         
         //verify all fields are not empty

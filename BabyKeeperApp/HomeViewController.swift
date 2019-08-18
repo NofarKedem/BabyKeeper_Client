@@ -15,11 +15,16 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var logOutBtn: UIButton!
     @IBOutlet weak var startSimulationBtn: UIButton!
+    @IBOutlet weak var startSimulation1: UIButton!
+    @IBOutlet weak var startSimulation2: UIButton!
     @IBOutlet weak var alarmLable: UILabel!
     @IBOutlet weak var falseAlarmBtn: UIButton!
     @IBOutlet weak var handledAlarmBtn: UIButton!
+    @IBOutlet weak var alartImage: UIImageView!
     
     var user: User = User(userID: "", firstName: "", lastName: "", email: "", pw: "", myPhoneNum: "")
+    var imageUrlToDisplay : String = ""
+    var isThereChildrenInTheCar : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,15 +48,16 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func didPressStartSimulationBtn(_ sender: Any) {
-        //TBD send trigger for the backend to check picture
-        
-        //in case of baby recognition
-        alarmLable.isHidden = false
-        falseAlarmBtn.isHidden = false
-        falseAlarmBtn.isEnabled = true
-        handledAlarmBtn.isHidden = false
-        handledAlarmBtn.isEnabled = true
-        
+        sendTriggerToServer(simulationID: "0")
+    }
+    
+    @IBAction func didPressStartSimulation1Btn(_ sender: Any) {
+        sendTriggerToServer(simulationID: "1")
+    }
+    
+    
+    @IBAction func didPressStartSimulation2(_ sender: Any) {
+        sendTriggerToServer(simulationID: "2")
     }
     
     @IBAction func didPressFalseAlarmBtn(_ sender: Any) {
@@ -63,6 +69,8 @@ class HomeViewController: UIViewController {
         falseAlarmBtn.isEnabled = false
         handledAlarmBtn.isHidden = true
         handledAlarmBtn.isEnabled = false
+        alartImage.isHidden = true
+        self.isThereChildrenInTheCar = false
     }
     
     @IBAction func didPressHandeledAlarmBtn(_ sender: Any) {
@@ -74,6 +82,8 @@ class HomeViewController: UIViewController {
         falseAlarmBtn.isEnabled = false
         handledAlarmBtn.isHidden = true
         handledAlarmBtn.isEnabled = false
+        alartImage.isHidden = true
+        self.isThereChildrenInTheCar = false
     }
     
     func displayUserName(){
@@ -145,7 +155,91 @@ class HomeViewController: UIViewController {
         self.performSegue(withIdentifier: "signOutSegue", sender: sender)
     }
     
-    func doBlinkAlarm(){
+    func sendTriggerToServer(simulationID : String){
+        let params = ["simulationID": simulationID]
+        print(params)
+        var components = URLComponents(string: "http://localhost:8080/startSimulation")!
+        components.queryItems = params.map { (key, value) in
+            URLQueryItem(name: key, value: value)
+        }
+        var request = URLRequest(url: components.url!)
+        //var request = URLRequest(url: URL(string: "")!)
+        request.httpMethod = "GET"
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+            //print(response!)
+            do {
+                let response = response as! HTTPURLResponse
+                if (response.statusCode != 200){
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
+                    //self.showGetInfoAlertMessage(message: json["message"]! as! String)
+                    print(response.statusCode)
+                }
+                else{
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    print(json)
+                    self.imageUrlToDisplay = json["picUrl"] as! String
+                    self.isThereChildrenInTheCar = json["thereChildrenInTheCar"] as! Bool
+                    DispatchQueue.main.async {self.displayAlarm()}
+                }
+                
+            } catch {
+                print("error")
+            }
+        })
         
+        task.resume()
+        
+    }
+
+    
+    func displayAlarm() {
+        if(self.isThereChildrenInTheCar){
+            alarmLable.isHidden = false
+            falseAlarmBtn.isHidden = false
+            falseAlarmBtn.isEnabled = true
+            handledAlarmBtn.isHidden = false
+            handledAlarmBtn.isEnabled = true
+            
+            //get image to display
+            let url = URL(string: imageUrlToDisplay)!
+            
+            self.getImage(for: url, completion: { (image) in
+                self.alartImage.image = image
+            })
+            alartImage.isHidden = false
+        }
+        else {
+            return
+        }
+    }
+    
+    
+    //image handaling
+    
+    func getImage(for url: URL, completion: @escaping (UIImage?) -> Void) {
+        performRequest(url: url) { data in
+            DispatchQueue.main.async {
+                completion(UIImage.image(from: data))
+            }
+        }
+    }
+    
+    func performRequest(url: URL, completion: @escaping (Data?) -> Void) {
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                print(error)
+            }
+            
+            completion(data)
+            }.resume()
+    }
+}
+
+extension UIImage {
+    static func image(from data: Data?) -> UIImage? {
+        guard let data = data else { return nil }
+        
+        return UIImage(data: data)
     }
 }
