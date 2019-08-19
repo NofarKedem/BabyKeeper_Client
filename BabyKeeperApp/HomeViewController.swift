@@ -95,7 +95,7 @@ class HomeViewController: UIViewController {
     func getUserInfo(){
         let userId = UserDefaults.standard.string(forKey: "userID")
         let params = ["userid": userId] as! Dictionary<String, String>
-        var components = URLComponents(string: "http://localhost:8080/getUserSettingInfo")!
+        var components = URLComponents(string: "http://10.0.0.34:8080/getUserSettingInfo")!
         components.queryItems = params.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }
@@ -158,7 +158,7 @@ class HomeViewController: UIViewController {
     func sendTriggerToServer(simulationID : String){
         let params = ["simulationID": simulationID]
         print(params)
-        var components = URLComponents(string: "http://localhost:8080/startSimulation")!
+        var components = URLComponents(string: "http://10.0.0.34:8080/startSimulation")!
         components.queryItems = params.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }

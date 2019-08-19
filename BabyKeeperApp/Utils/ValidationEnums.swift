@@ -31,7 +31,8 @@ enum RegEx: String {
     case password = "^.{6,15}$" // Password length 6-15
     case alphabeticStringWithSpace = "^[a-zA-Z ]*$" // e.g. hello sandeep
     case alphabeticStringFirstLetterCaps = "^[A-Z]+[a-zA-Z]*$" // SandsHell
-    case phoneNo = "^\\d{3}-\\d{3}-\\d{4}$" // PhoneNo 10-14 Digits        //Change RegEx according to your Requirement
+    case phoneNo = "^\\d{3}\\d{3}\\d{4}$"
+    //case phoneNo = "^\\d{3}-\\d{3}-\\d{4}$" // PhoneNo 10-14 Digits        //Change RegEx according to your Requirement
     //case phoneNo = "[0-9]{10,14}" // PhoneNo 10-14 Digits        //Change RegEx according to your Requirement
 
 }   

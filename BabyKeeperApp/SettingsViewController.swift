@@ -39,6 +39,18 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         //self.tableView.reloadData()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        
+        textField.resignFirstResponder()
+        return true
+    }
+    
     @IBAction func pressEditPhoneBtn(_ sender: Any) {
         phoneNumField.isEnabled = true
         approvePhoneBtn.isEnabled = true
@@ -54,6 +66,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 self.phoneNumField.isEnabled = false
                 self.approvePhoneBtn.isEnabled = false
                 self.submitBtn.isEnabled = true
+                self.submitBtn.isEnabled = false
                 self.showAlertMessage()
             }
             //errorInPersonalPhoneValidation = false
@@ -75,6 +88,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if (errorInContactsValidation){
             showAlertMessage()
             errorInContactsValidation = false
+            self.submitBtn.isEnabled = false
             return
         }
         
@@ -111,7 +125,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func getUserInfo(){
         let userId = UserDefaults.standard.string(forKey: "userID")
         let params = ["userid": userId] as! Dictionary<String, String>
-        var components = URLComponents(string: "http://localhost:8080/getUserSettingInfo")!
+        var components = URLComponents(string: "http://10.0.0.34:8080/getUserSettingInfo")!
         components.queryItems = params.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }
@@ -147,7 +161,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func getContactInfo(){
         let userId = UserDefaults.standard.string(forKey: "userID")
         let params = ["userid": userId] as! Dictionary<String, String>
-        var components = URLComponents(string: "http://localhost:8080/getContactsInfo")!
+        var components = URLComponents(string: "http://10.0.0.34:8080/getContactsInfo")!
         components.queryItems = params.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }
@@ -252,7 +266,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         //let params = String(data: paramsData, encoding: .utf8)!
         //print(params)
         
-        var request = URLRequest(url: URL(string: "http://localhost:8080/submitSetting")!)
+        var request = URLRequest(url: URL(string: "http://10.0.0.34:8080/submitSetting")!)
         request.httpMethod = "POST"
         request.httpBody = paramsData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

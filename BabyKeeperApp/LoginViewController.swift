@@ -38,6 +38,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.touchesBegan(touches, with: event)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        
+        textField.resignFirstResponder()
+        return true
+    }
+    
     @IBAction func didPressLoginButton(_ sender: UIButton) {
         
         //verify all fields are not empty
@@ -53,7 +60,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                       "Password": passwordTextField!.text] as! Dictionary<String, String>
         
         print(params)
-        var request = URLRequest(url: URL(string: "http://localhost:8080/login")!)
+        var request = URLRequest(url: URL(string: "http://10.0.0.34:8080/login")!)
         request.httpMethod = "POST"
         request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
