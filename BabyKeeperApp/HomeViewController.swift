@@ -106,10 +106,16 @@ class HomeViewController: UIViewController {
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             //print(response!)
             do {
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showAlertMessage(message: "No Internet Connection. Some actions might not work as expected")
+                    return
+                }
                 let response = response as! HTTPURLResponse
                 if (response.statusCode != 200){
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
-                    //self.showGetInfoAlertMessage(message: json["message"]! as! String)
+                    self.showAlertMessage(message: "Something went wrong...\n Please try again later")
                     print(response.statusCode)
                 }
                 else{
@@ -169,11 +175,19 @@ class HomeViewController: UIViewController {
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             //print(response!)
             do {
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showAlertMessage(message: "The connection to the server failed")
+                    return
+                }
+                
                 let response = response as! HTTPURLResponse
                 if (response.statusCode != 200){
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
-                    //self.showGetInfoAlertMessage(message: json["message"]! as! String)
+                    self.showAlertMessage(message: "Something went wrong...\n Please try again later")
                     print(response.statusCode)
+                    print(json["errorMsg"]!)
                 }
                 else{
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
@@ -214,6 +228,17 @@ class HomeViewController: UIViewController {
         }
     }
     
+    func showAlertMessage(message:String) {
+        DispatchQueue.main.async {
+            let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertMessage.addAction(cancelAction)
+            
+            self.present(alertMessage, animated: true, completion: nil)
+        }
+    }
     
     //image handaling
     

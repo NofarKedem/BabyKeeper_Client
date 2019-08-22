@@ -69,11 +69,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             do {
                 //print(response!)
-                let response = response as! HTTPURLResponse
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showAlertMessage(message: "Please check your network connection and try again")
+                    return
+                }
+                
+                let response = try response as! HTTPURLResponse
                 if response.statusCode != 200 {
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                    //print(json["message"]!)
-                    self.showAlertMessage(message: json["errorMsg"]! as! String)
+                    print(json["errorMsg"]!)
+                    self.showAlertMessage(message: "Something went wrong...\n Please try again later")
                     
                 }
                 else{

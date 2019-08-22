@@ -24,12 +24,21 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
     @IBOutlet weak var emailErrMsg: UITextView!
     @IBOutlet weak var pwErrMsg: UITextView!
     
+    
+    @IBOutlet weak var bottomConstraintPW: NSLayoutConstraint!
+    
     var firstNameValidationStatus: Bool = true
     var lastNameValidationStatus: Bool = true
     var emailValidationStatus: Bool = true
     var pwValidationStatus: Bool = true
     
     //var shouldPerformSegue : Bool = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -100,24 +109,29 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
         waitForTaskGroup.enter()
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-            print(response!)
+            //print(response!)
             do {
-                let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                print(json)
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showAlertMessage(message: "Please check your network connection and try again")
+                    return
+                }
+                
+//                let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+//                print(json)
                 //print(json["FaultId"]!)
                 
                 let response = response as! HTTPURLResponse
                 if response.statusCode != 200 {
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                    //print(json["message"]!)
-                    self.showAlertMessage(message: json["message"]! as! String)
+                    print(json["errorMsg"]!)
+                    self.showAlertMessage(message: "Something went wrong...\n Please try again later")
                     
                 }
                 else{
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                    //print(json)
-                    //print(json["email"]!)
-                    
+
                     //need to save/use the relevent data from backend
                     if (json["actionSucceed"] as! Bool){ //if the login at the backend succeeded
                         UserDefaults.standard.set(json["userId"], forKey: "userID")

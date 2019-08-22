@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     var contactPersonToDisplay: [ContactPerson]! = []
-    var user : User!
+    var user : User = User(userID: "", firstName: "", lastName: "", email: "", pw: "", myPhoneNum: "")
     var errorInContactsValidation : Bool = false
     var errorInPersonalPhoneValidation : Bool = false
 
@@ -108,7 +108,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         //perform call to the server with the new details to update - TBD
         updateUserInfo(sender)
-        //DispatchQueue.main.async {self.performSegue(withIdentifier: "submitSegue", sender: sender)}
+        //print("returned")
     }
     
     // MARK: - Navigation
@@ -136,11 +136,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             //print(response!)
             do {
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showGetInfoAlertMessage(message: "No Internet Connection. Some actions might not work as expected")
+                    return
+                }
+                
                 let response = response as! HTTPURLResponse
                 if (response.statusCode != 200){
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
-                    self.showGetInfoAlertMessage(message: json["message"]! as! String)
+                    self.showGetInfoAlertMessage(message: "Something went wrong...\n Please try again later")
                     print(response.statusCode)
+                    print(json["message"]! as! String)
                 }
                 else{
                     print(data!)
@@ -172,13 +180,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             //print(response!)
             do {
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showGetInfoAlertMessage(message: "No Internet Connection. Some actions might not work as expected")
+                    return
+                }
+                
                 let response = response as! HTTPURLResponse
                 if (response.statusCode != 200){
                     let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, Any>
-                    self.showGetInfoAlertMessage(message: json["message"]! as! String)
+                    //self.showGetInfoAlertMessage(message: json["message"]! as! String)
                     print(response.statusCode)
                 } else {
-                    print(data!)
                     let jsonDecoder = JSONDecoder()
                     let decoded = try! jsonDecoder.decode([ContactPerson2].self, from: data!)
                     if (decoded.count == 0 ) {
@@ -275,14 +289,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
             //print(response!)
             do {
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showGetInfoAlertMessage(message: "No Internet Connection. Some actions might not work as expected")
+                    return
+                }
+                
                 let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-//                print(json)
-//                print(json["FaultId"]!)
-//                for (key, value) in json {
-//                    print("\(key) -> \(value)")
-//                }
+
                 if (json["actionSucceed"] as! Bool){
-                    DispatchQueue.main.async {self.performSegue(withIdentifier: "submitSegue", sender: sender)}
+                    self.doSegue(withIdentifier: "submitSegue", sender: sender)
                 } else {
                     print(json["errorMsg"]!)
                     self.showGetInfoAlertMessage(message: json["errorMsg"]! as! String)
@@ -295,6 +312,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         })
         
         task.resume()
+    }
+    
+    func doSegue(withIdentifier identifier: String, sender: Any?) {
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: identifier, sender: sender)
+            
+        }
     }
     
     //validations and error handaling for all the  login text fields
@@ -359,12 +383,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func showGetInfoAlertMessage(message:String){
-        let alertMessage = UIAlertController(title: "Something Went Wrong", message: message, preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        
-        alertMessage.addAction(cancelAction)
-        
-        self.present(alertMessage, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alertMessage = UIAlertController(title: "Something Went Wrong", message: message, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertMessage.addAction(cancelAction)
+            
+            self.present(alertMessage, animated: true, completion: nil)
+        }
     }
 }

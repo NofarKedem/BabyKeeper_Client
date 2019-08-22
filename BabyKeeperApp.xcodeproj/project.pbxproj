@@ -394,7 +394,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC8B945CC30031C612C940D6 /* Pods-BabyKeeperApp.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 83G3MG9VXS;
 				INFOPLIST_FILE = BabyKeeperApp/Info.plist;
@@ -413,7 +413,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 06007F2BB69F85BCA6C6647B /* Pods-BabyKeeperApp.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 83G3MG9VXS;
 				INFOPLIST_FILE = BabyKeeperApp/Info.plist;
