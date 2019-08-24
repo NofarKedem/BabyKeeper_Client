@@ -232,8 +232,9 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
-                            <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="H49-w2-gdi">
-                                <rect key="frame" x="23" y="507" width="328" height="30"/>
+                            <textField opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="H49-w2-gdi">
+                                <rect key="frame" x="23" y="507" width="91" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="new-password"/>
                             </textField>
@@ -326,16 +327,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="uFj-xY-Ehe" firstAttribute="trailing" secondItem="H49-w2-gdi" secondAttribute="trailing" constant="24" id="3ec-YJ-CwX"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="H49-w2-gdi" secondAttribute="bottom" constant="241" id="Qlw-rN-2ty"/>
-                            <constraint firstItem="H49-w2-gdi" firstAttribute="leading" secondItem="uFj-xY-Ehe" secondAttribute="leading" constant="23" id="zFP-lW-12X"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="uFj-xY-Ehe"/>
                     </view>
                     <connections>
                         <outlet property="SignUpBtn" destination="gxa-Bj-8as" id="fax-d8-1UI"/>
-                        <outlet property="bottomConstraintPW" destination="Qlw-rN-2ty" id="83i-s8-FPL"/>
                         <outlet property="confirmPwTextField" destination="wGi-Vw-Aok" id="zbk-RJ-WXZ"/>
                         <outlet property="emailErrMsg" destination="0ae-VA-LQG" id="s4d-ym-KLu"/>
                         <outlet property="emailTextField" destination="whN-u4-DZh" id="3o6-bx-SN8"/>
@@ -350,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YzT-RG-sjq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1692.753623188406" y="137.94642857142856"/>
+            <point key="canvasLocation" x="1692" y="137.4384236453202"/>
         </scene>
         <!--View Controller Main Page-->
         <scene sceneID="6p4-EV-R6K">
@@ -448,6 +443,14 @@
                                         <rect key="frame" x="8" y="130" width="293" height="208"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWh-dq-JTl">
+                                        <rect key="frame" x="131" y="92" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="didPressImportImage:" destination="9GJ-kc-qpQ" eventType="touchUpInside" id="wAJ-P0-yad"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="COh-hj-AVI">

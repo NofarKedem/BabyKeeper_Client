@@ -99,7 +99,7 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
                       "Email": emailTextField.text,
                       "Password": passwordTextField.text] as! Dictionary<String, String>
         print(params)
-        var request = URLRequest(url: URL(string: "http://10.0.0.34:8080/signup")!)
+        var request = URLRequest(url: URL(string: "http://localhost:8080/signup")!)
         request.httpMethod = "POST"
         request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

@@ -125,7 +125,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func getUserInfo(){
         let userId = UserDefaults.standard.string(forKey: "userID")
         let params = ["userid": userId] as! Dictionary<String, String>
-        var components = URLComponents(string: "http://10.0.0.34:8080/getUserSettingInfo")!
+        var components = URLComponents(string: "http://localhost:8080/getUserSettingInfo")!
         components.queryItems = params.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }
@@ -169,7 +169,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func getContactInfo(){
         let userId = UserDefaults.standard.string(forKey: "userID")
         let params = ["userid": userId] as! Dictionary<String, String>
-        var components = URLComponents(string: "http://10.0.0.34:8080/getContactsInfo")!
+        var components = URLComponents(string: "http://localhost:8080/getContactsInfo")!
         components.queryItems = params.map { (key, value) in
             URLQueryItem(name: key, value: value)
         }
@@ -280,7 +280,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         //let params = String(data: paramsData, encoding: .utf8)!
         //print(params)
         
-        var request = URLRequest(url: URL(string: "http://10.0.0.34:8080/submitSetting")!)
+        var request = URLRequest(url: URL(string: "http://localhost:8080/submitSetting")!)
         request.httpMethod = "POST"
         request.httpBody = paramsData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
