@@ -410,11 +410,11 @@
                                 <rect key="frame" x="33" y="368" width="311" height="352"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Attention! Baby is IN the Car!!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nk-Uu-3Oc">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nk-Uu-3Oc">
                                         <rect key="frame" x="9" y="0.0" width="292" height="57"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="20"/>
-                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jf7-eS-pTO">
@@ -443,49 +443,17 @@
                                         <rect key="frame" x="8" y="130" width="293" height="208"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWh-dq-JTl">
-                                        <rect key="frame" x="131" y="92" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="didPressImportImage:" destination="9GJ-kc-qpQ" eventType="touchUpInside" id="wAJ-P0-yad"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="COh-hj-AVI">
-                                <rect key="frame" x="48" y="304" width="89" height="35"/>
+                                <rect key="frame" x="48" y="304" width="284" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="9"/>
-                                <state key="normal" title="Start Simulation 0" backgroundImage="ClearBtn">
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal" title="Start Simulation " backgroundImage="ClearBtn">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="didPressStartSimulationBtn:" destination="9GJ-kc-qpQ" eventType="touchUpInside" id="PO4-2h-muk"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="48f-qR-vSt">
-                                <rect key="frame" x="145" y="304" width="89" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="9"/>
-                                <state key="normal" title="Start Simulation 1" backgroundImage="ClearBtn">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="didPressStartSimulation1Btn:" destination="9GJ-kc-qpQ" eventType="touchUpInside" id="kCt-kc-LCI"/>
-                                    <action selector="didPressStartSimulationBtn:" destination="9GJ-kc-qpQ" eventType="touchUpInside" id="QHh-Yv-X2O"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CqG-mt-UNz">
-                                <rect key="frame" x="240" y="304" width="89" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="9"/>
-                                <state key="normal" title="Start Simulation 2" backgroundImage="ClearBtn">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="didPressStartSimulation2:" destination="9GJ-kc-qpQ" eventType="touchUpInside" id="Tdt-5X-AFc"/>
-                                    <action selector="didPressStartSimulationBtn:" destination="9GJ-kc-qpQ" eventType="touchUpInside" id="vJw-Br-fB8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -500,8 +468,6 @@
                         <outlet property="logOutBtn" destination="KUX-da-S4j" id="FdV-tj-KNi"/>
                         <outlet property="nameLabel" destination="8CH-gd-4mZ" id="Muf-85-8ZJ"/>
                         <outlet property="settingsBtn" destination="gdI-Re-zWR" id="N8D-CP-f2J"/>
-                        <outlet property="startSimulation1" destination="48f-qR-vSt" id="Xoe-Rp-YAs"/>
-                        <outlet property="startSimulation2" destination="CqG-mt-UNz" id="jD7-eF-4Hg"/>
                         <outlet property="startSimulationBtn" destination="COh-hj-AVI" id="Lyx-Da-g9c"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="signOutSegue" id="qk7-kg-l5n"/>
                     </connections>

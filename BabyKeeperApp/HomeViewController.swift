@@ -34,37 +34,18 @@ class HomeViewController: UIViewController , UIImagePickerControllerDelegate, UI
         // Do any additional setup after loading the view.
         
     }
-    
-    @IBAction func didPressImportImage(_ sender: Any) {
-        importPicture()
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     @IBAction func didPressLogoutBtn(_ sender: Any) {
         showLogoutAreYouSureMessage(sender)
     }
     
     @IBAction func didPressStartSimulationBtn(_ sender: Any) {
-        sendTriggerToServer(simulationID: "0")
+        //sendTriggerToServer(simulationID: "0")
+        importPicture()
+        //uploadImageToServer()
+        
     }
-    
-    @IBAction func didPressStartSimulation1Btn(_ sender: Any) {
-        sendTriggerToServer(simulationID: "1")
-    }
-    
-    
-    @IBAction func didPressStartSimulation2(_ sender: Any) {
-        sendTriggerToServer(simulationID: "2")
-    }
+
     
     @IBAction func didPressFalseAlarmBtn(_ sender: Any) {
         
@@ -167,6 +148,123 @@ class HomeViewController: UIViewController , UIImagePickerControllerDelegate, UI
         self.performSegue(withIdentifier: "signOutSegue", sender: sender)
     }
     
+    func displayAlarm() {
+        if(self.isThereChildrenInTheCar){
+            alarmLable.text = "Attention! Baby is IN the Car!!!"
+            alarmLable.textColor = UIColor.red
+            
+            alarmLable.isHidden = false
+            falseAlarmBtn.isHidden = false
+            falseAlarmBtn.isEnabled = true
+            handledAlarmBtn.isHidden = false
+            handledAlarmBtn.isEnabled = true
+            alartImage.isHidden = false
+            alartImage.image = currentImage
+            //get image to display when using storage
+//            let url = URL(string: imageUrlToDisplay)!
+//
+//            self.getImage(for: url, completion: { (image) in
+//                self.alartImage.image = image
+//            })
+            
+            //display image
+            
+            
+        }
+        else{
+            alarmLable.text = "You are all Safe!"
+            alarmLable.textColor = UIColor.white
+            alarmLable.isHidden = false
+            falseAlarmBtn.isHidden = false
+            falseAlarmBtn.isEnabled = true
+            handledAlarmBtn.isHidden = false
+            handledAlarmBtn.isEnabled = true
+            alartImage.isHidden = false
+            alartImage.image = currentImage
+        }
+        
+    }
+    
+    
+    func showAlertMessage(message:String) {
+        DispatchQueue.main.async {
+            let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertMessage.addAction(cancelAction)
+            
+            self.present(alertMessage, animated: true, completion: nil)
+        }
+    }
+    
+    //test import image
+    @objc func importPicture() {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else { return }
+        
+        dismiss(animated: true)
+        
+        currentImage = image
+        //alartImage.image = currentImage
+        uploadImageToServer()
+        
+    }
+    
+    
+    func uploadImageToServer(){
+        let userID = UserDefaults.standard.string(forKey: "userID") ?? "0"
+        let imgData = currentImage.pngData()?.base64EncodedString()
+        let params = ["userId" : userID,
+                    "img": imgData] as! Dictionary<String, String>
+        var request = URLRequest(url: URL(string: "http://localhost:8080/uploadImg")!)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+            do {
+                //print(response!)
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showAlertMessage(message: "Please check your network connection and try again")
+                    return
+                }
+                
+                let response = try response as! HTTPURLResponse
+                if response.statusCode != 200 {
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    //print(json["errorMsg"]!)
+                    self.showAlertMessage(message: "Something went wrong...\n Please try again later")
+                    
+                }
+                else{
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    print(json)
+                    self.isThereChildrenInTheCar = json["thereChildrenInTheCar"] as! Bool
+                    DispatchQueue.main.async {self.displayAlarm()}
+    
+                }
+                
+            } catch {
+                print("error")
+            }
+        })
+        
+        task.resume()
+        
+    }
+    
+    //image handaling - when pulling image from storage
+    
     func sendTriggerToServer(simulationID : String){
         let params = ["simulationID": simulationID]
         print(params)
@@ -201,7 +299,7 @@ class HomeViewController: UIViewController , UIImagePickerControllerDelegate, UI
                     self.imageUrlToDisplay = json["picUrl"] as! String
                     self.isThereChildrenInTheCar = json["thereChildrenInTheCar"] as! Bool
                     DispatchQueue.main.async {self.displayAlarm()}
-
+                    
                     
                 }
                 
@@ -213,112 +311,6 @@ class HomeViewController: UIViewController , UIImagePickerControllerDelegate, UI
         task.resume()
         
     }
-
-    
-    func displayAlarm() {
-        if(self.isThereChildrenInTheCar){
-            alarmLable.text = "Attention! Baby is IN the Car!!!"
-            alarmLable.textColor = UIColor.red
-            
-            alarmLable.isHidden = false
-            falseAlarmBtn.isHidden = false
-            falseAlarmBtn.isEnabled = true
-            handledAlarmBtn.isHidden = false
-            handledAlarmBtn.isEnabled = true
-            //alartImage.clearsContextBeforeDrawing = true
-            alartImage.isHidden = false
-            
-            //get image to display
-            let url = URL(string: imageUrlToDisplay)!
-            
-            self.getImage(for: url, completion: { (image) in
-                self.alartImage.image = image
-            })
-        }
-        else{
-            return
-        }
-        
-    }
-    
-    
-    func showAlertMessage(message:String) {
-        DispatchQueue.main.async {
-            let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
-            
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            
-            alertMessage.addAction(cancelAction)
-            
-            self.present(alertMessage, animated: true, completion: nil)
-        }
-    }
-    
-    //test import image
-    @objc func importPicture() {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.editedImage] as? UIImage else { return }
-        
-        dismiss(animated: true)
-        
-        currentImage = image
-        alartImage.image = currentImage
-        uploadImageToServer()
-        
-    }
-    
-    func uploadImageToServer(){
-        let imgData = currentImage.pngData()?.base64EncodedString()
-        let params = ["img": imgData] as! Dictionary<String, String>
-        
-        print(params)
-        var request = URLRequest(url: URL(string: "http://localhost:8080/uploadImg")!)
-        request.httpMethod = "POST"
-        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-            do {
-                //print(response!)
-                if error != nil{
-                    //handel error
-                    print(error!.localizedDescription)
-                    self.showAlertMessage(message: "Please check your network connection and try again")
-                    return
-                }
-                
-                let response = try response as! HTTPURLResponse
-                if response.statusCode != 200 {
-                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                    print(json["errorMsg"]!)
-                    self.showAlertMessage(message: "Something went wrong...\n Please try again later")
-                    
-                }
-                else{
-                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                    print("got response")
-                    print(json)
-                    
-    
-                }
-                
-            } catch {
-                print("error")
-            }
-        })
-        
-        task.resume()
-        
-    }
-    
-    //image handaling
     
     func getImage(for url: URL, completion: @escaping (UIImage?) -> Void) {
         performRequest(url: url) { data in
