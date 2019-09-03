@@ -32,8 +32,6 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
     var emailValidationStatus: Bool = true
     var pwValidationStatus: Bool = true
     
-    //var shouldPerformSegue : Bool = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,7 +66,102 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
     }
         
     @IBAction func didPressSignUpBtn(_ sender: Any) {
+        self.validationsWhenPressSignup()
+        //Send the user object to the server and wait for the response
+        let params = ["FirstName": firstNameTextField.text,
+                      "LastName": lastNameTextField.text,
+                      "Email": emailTextField.text,
+                      "Password": passwordTextField.text] as! Dictionary<String, String>
+        print(params)
+        var request = URLRequest(url: URL(string: "http://localhost:8080/signup")!)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let waitForTaskGroup = DispatchGroup()
         
+        waitForTaskGroup.enter()
+        let session = URLSession.shared
+        //self.showLoadView()
+        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+            //print(response!)
+            //DispatchQueue.main.async{self.dismissLoadView()}
+            
+            do {
+                if error != nil{
+                    //handel error
+                    print(error!.localizedDescription)
+                    self.showAlertMessage(message: "Please check your network connection and try again")
+                    return
+                }
+                
+                let response = response as! HTTPURLResponse
+                if response.statusCode != 200 {
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    print(json["errorMsg"]!)
+                    self.showAlertMessage(message: "Something went wrong...\n Please try again later")
+                    
+                }
+                else{
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+                    //need to save/use the relevent data from backend
+                    if (json["actionSucceed"] as! Bool){ //if the login at the backend succeeded
+                        UserDefaults.standard.set(json["userId"], forKey: "userID")
+                        self.doSegue(withIdentifier: "signUpSegue", sender: sender)
+                    }
+                    else{ //if the login at the backend failed
+                        self.showAlertMessage(message: json["errorMsg"]! as! String)
+                    }
+                }
+                
+
+            } catch {
+                print("error")
+            }
+        })
+        
+        task.resume()
+        
+    }
+    
+//    func dismissLoadView(){
+//        DispatchQueue.main.async{self.dismiss(animated: false, completion: nil)}
+//    }
+//
+//    func showLoadView(){
+//        //test load page
+//        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+//
+//        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+//        loadingIndicator.hidesWhenStopped = true
+//        loadingIndicator.style = UIActivityIndicatorView.Style.gray
+//        loadingIndicator.startAnimating();
+//
+//        alert.view.addSubview(loadingIndicator)
+//        present(alert, animated: true)
+//    }
+    
+    func doSegue(withIdentifier identifier: String, sender: Any?) {
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "signUpSegue", sender: sender)
+            //self.shouldPerformSegue(withIdentifier: "signUpSegue", sender: sender)
+        }
+    }
+    
+    func showAlertMessage(message:String) {
+        DispatchQueue.main.async {
+            let alertMessage = UIAlertController(title: "Sign Up Failed", message: message, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertMessage.addAction(cancelAction)
+            
+            self.present(alertMessage, animated: true, completion: nil)
+        }
+    }
+    
+    //validations right when tapping sign up button
+    func validationsWhenPressSignup(){
         //verify all fields are not empty
         if (firstNameTextField.text == "" || lastNameTextField.text == "" || emailTextField.text == ""  || passwordTextField.text == "" || confirmPwTextField.text == ""){
             let alert = UIAlertController(title: "Invalid Action", message: "At least one of the text field are empty. Please fill all information before submition", preferredStyle: .alert)
@@ -91,91 +184,6 @@ class SignupViewController: UIViewController , UITextFieldDelegate{
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
             return
-        }
-        
-        //Send the user object to the server and wait for the response
-        let params = ["FirstName": firstNameTextField.text,
-                      "LastName": lastNameTextField.text,
-                      "Email": emailTextField.text,
-                      "Password": passwordTextField.text] as! Dictionary<String, String>
-        print(params)
-        var request = URLRequest(url: URL(string: "http://localhost:8080/signup")!)
-        request.httpMethod = "POST"
-        request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let waitForTaskGroup = DispatchGroup()
-        
-        waitForTaskGroup.enter()
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-            //print(response!)
-            do {
-                if error != nil{
-                    //handel error
-                    print(error!.localizedDescription)
-                    self.showAlertMessage(message: "Please check your network connection and try again")
-                    return
-                }
-                
-//                let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-//                print(json)
-                //print(json["FaultId"]!)
-                
-                let response = response as! HTTPURLResponse
-                if response.statusCode != 200 {
-                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                    print(json["errorMsg"]!)
-                    self.showAlertMessage(message: "Something went wrong...\n Please try again later")
-                    
-                }
-                else{
-                    let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-
-                    //need to save/use the relevent data from backend
-                    if (json["actionSucceed"] as! Bool){ //if the login at the backend succeeded
-                        UserDefaults.standard.set(json["userId"], forKey: "userID")
-                        self.doSegue(withIdentifier: "signUpSegue", sender: sender)
-                    }
-                    else{ //if the login at the backend failed
-                        self.showAlertMessage(message: json["errorMsg"]! as! String)
-                    }
-                    
-                    self.doSegue(withIdentifier: "signUpSegue", sender: sender)
-                }
-                
-
-            } catch {
-                print("error")
-            }
-        })
-
-        task.resume()
-        
-        
-    }
-    
-    //need to change
-    func doSegue(withIdentifier identifier: String, sender: Any?) {
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "signUpSegue", sender: sender)
-            //self.shouldPerformSegue(withIdentifier: "signUpSegue", sender: sender)
-        }
-    }
-    
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool{
-//        return self.shouldPerformSegue
-//    }
-    
-    func showAlertMessage(message:String) {
-        DispatchQueue.main.async {
-            let alertMessage = UIAlertController(title: "Sign Up Failed", message: message, preferredStyle: .alert)
-            
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            
-            alertMessage.addAction(cancelAction)
-            
-            self.present(alertMessage, animated: true, completion: nil)
         }
     }
 

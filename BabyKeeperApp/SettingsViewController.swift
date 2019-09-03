@@ -95,7 +95,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         contactPersonToDisplay.append(ContactPerson(firstName: contactFirstNameField.text!, lastName: contactLastNameField.text!, phoneNum: contactPhoneField.text!))
         DispatchQueue.main.async { self.tableView.reloadData() }
         DispatchQueue.main.async {self.submitBtn.isEnabled = true}
-        
+        self.contactFirstNameField.text = ""
+        self.contactLastNameField.text = ""
+        self.contactPhoneField.text = ""
     }
     
     @IBAction func pressSubmitBtn(_ sender: Any) {
@@ -321,7 +323,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    //validations and error handaling for all the  login text fields
+    //validations and error handaling for all the  contacts text fields
     func textFieldsValidations(_ textField: UITextField){
         switch (textField.tag) {
         case settingsView.phoneNumTag.rawValue:
@@ -335,7 +337,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             }
             break;
         case settingsView.contactFirstNameTag.rawValue:
-            let response = Validation.shared.validate(values: (ValidationType.stringWithFirstLetterCaps, contactFirstNameField.text!))
+            let response = Validation.shared.validate(values: (ValidationType.alphabeticString, contactFirstNameField.text!))
             switch response {
             case .success:
                 break
@@ -345,7 +347,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             }
             break;
         case settingsView.contactLastNameTag.rawValue:
-            let response = Validation.shared.validate(values: (ValidationType.stringWithFirstLetterCaps, contactLastNameField.text!))
+            let response = Validation.shared.validate(values: (ValidationType.alphabeticString, contactLastNameField.text!))
             switch response {
             case .success:
                 break
@@ -371,7 +373,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func showAlertMessage() {
         DispatchQueue.main.async {
-            let message = "One or more text fields values are invalid. \n Please verify names appears with capitals and phone numbers are valid"
+            let message = "One or more text fields values are invalid. \n Please verify names and phone numbers are valid"
             let alertMessage = UIAlertController(title: "Validation Error", message: message, preferredStyle: .alert)
             
             let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)

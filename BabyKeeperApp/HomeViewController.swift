@@ -47,26 +47,26 @@ class HomeViewController: UIViewController , UIImagePickerControllerDelegate, UI
     }
 
     
-    @IBAction func didPressFalseAlarmBtn(_ sender: Any) {
-        
-        //send triger to the backend
-        
-        alarmLable.isHidden = true
-        falseAlarmBtn.isHidden = true
-        falseAlarmBtn.isEnabled = false
-        handledAlarmBtn.isHidden = true
-        handledAlarmBtn.isEnabled = false
-        alartImage.isHidden = true
-        self.isThereChildrenInTheCar = false
-    }
+//    @IBAction func didPressFalseAlarmBtn(_ sender: Any) {
+//
+//        //send triger to the backend
+//
+//        alarmLable.isHidden = true
+//        falseAlarmBtn.isHidden = true
+//        falseAlarmBtn.isEnabled = false
+//        handledAlarmBtn.isHidden = true
+//        handledAlarmBtn.isEnabled = false
+//        alartImage.isHidden = true
+//        self.isThereChildrenInTheCar = false
+//    }
     
     @IBAction func didPressHandeledAlarmBtn(_ sender: Any) {
         
         //send triger to the backend
         
         alarmLable.isHidden = true
-        falseAlarmBtn.isHidden = true
-        falseAlarmBtn.isEnabled = false
+        //falseAlarmBtn.isHidden = true
+        //falseAlarmBtn.isEnabled = false
         handledAlarmBtn.isHidden = true
         handledAlarmBtn.isEnabled = false
         alartImage.isHidden = true
@@ -154,8 +154,8 @@ class HomeViewController: UIViewController , UIImagePickerControllerDelegate, UI
             alarmLable.textColor = UIColor.red
             
             alarmLable.isHidden = false
-            falseAlarmBtn.isHidden = false
-            falseAlarmBtn.isEnabled = true
+            //falseAlarmBtn.isHidden = false
+            //falseAlarmBtn.isEnabled = true
             handledAlarmBtn.isHidden = false
             handledAlarmBtn.isEnabled = true
             alartImage.isHidden = false
@@ -175,8 +175,8 @@ class HomeViewController: UIViewController , UIImagePickerControllerDelegate, UI
             alarmLable.text = "You are all Safe!"
             alarmLable.textColor = UIColor.white
             alarmLable.isHidden = false
-            falseAlarmBtn.isHidden = false
-            falseAlarmBtn.isEnabled = true
+            //falseAlarmBtn.isHidden = false
+            //falseAlarmBtn.isEnabled = true
             handledAlarmBtn.isHidden = false
             handledAlarmBtn.isEnabled = true
             alartImage.isHidden = false
